@@ -1,19 +1,20 @@
 // Cache name
 const cacheName = "convataCh";
 // cache files
-// const cacheFiles = [
-//     './convata/',
-//     './convata/index.html',
-//     './convata/css/bulma.min.css',
-//     './convata/js/app.js'
-// ];
 const cacheFiles = [
-    '/',
-    '/index.html',
-    '/css/bulma.min.css',
-    '/js/app.js',
+    './convata/',
+    './convata/index.html',
+    './convata/css/bulma.min.css',
+    './convata/js/app.js',
     'https://free.currencyconverterapi.com/api/v5/currencies'
 ];
+// const cacheFiles = [
+//     '/',
+//     '/index.html',
+//     '/css/bulma.min.css',
+//     '/js/app.js',
+//     'https://free.currencyconverterapi.com/api/v5/currencies'
+// ];
 self.addEventListener('install', (e) => {
     console.log('[ServiceWorker] Install');
     e.waitUntil(
