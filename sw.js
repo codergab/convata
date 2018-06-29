@@ -3,9 +3,9 @@ const cacheName = "convataCh";
 // cache files
 const cacheFiles = [
     './',
-    './convata/index.html',
-    './convata/css/bulma.min.css',
-    './convata/js/app.js'
+    './index.html',
+    './css/bulma.min.css',
+    './js/app.js'
 ];
 self.addEventListener('install', (e) => {
     console.log('[ServiceWorker] Install');
