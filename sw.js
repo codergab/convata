@@ -1,11 +1,18 @@
 // Cache name
 const cacheName = "convataCh";
 // cache files
+// const cacheFiles = [
+//     './convata/',
+//     './convata/index.html',
+//     './convata/css/bulma.min.css',
+//     './convata/js/app.js'
+// ];
 const cacheFiles = [
-    './convata/',
-    './convata/index.html',
-    './convata/css/bulma.min.css',
-    './convata/js/app.js'
+    '/',
+    '/index.html',
+    '/css/bulma.min.css',
+    '/js/app.js',
+    'https://free.currencyconverterapi.com/api/v5/currencies'
 ];
 self.addEventListener('install', (e) => {
     console.log('[ServiceWorker] Install');
@@ -16,18 +23,20 @@ self.addEventListener('install', (e) => {
         })
     );
 });
-
-self.addEventListener('activate',(e) => {
-    e.waitUntil(
-        caches.keys().then(cacheNames => {
-            return Promise.all(cacheNames.map(presentCacheName => { 
-                if(presentCacheName !== cacheName)
-                console.log('Removing Old Cache');
-                return caches.delete(presentCacheName);
-            }))
-        })
-    )
+self.addEventListener('activate',event => {
+    event.waitUntill(self.clients.claim());
 });
+// self.addEventListener('activate',(e) => {
+//     e.waitUntil(
+//         caches.keys().then(cacheNames => {
+//             return Promise.all(cacheNames.map(presentCacheName => { 
+//                 if(presentCacheName !== cacheName)
+//                 console.log('Removing Old Cache');
+//                 return caches.delete(presentCacheName);
+//             }))
+//         })
+//     )
+// });
 
 self.addEventListener('fetch', (event) => {
     event.respondWith(
