@@ -96,9 +96,7 @@ let resetBtn = () => {
 // Register Service Worker
 if('serviceWorker' in navigator) {
 	// Register Service Worker
-	navigator.serviceWorker.register('./sw.js', {
-		scope: '/convata/'
-	})
+	navigator.serviceWorker.register('./sw.js')
 	.then((registration) => {
 		console.log('Service Worker Registered', registration);
 	})
