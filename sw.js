@@ -7,7 +7,7 @@ const cacheFiles = [
     './public/css/bulma.min.css',
     './public/js/app.js'
 ];
-self.addEventListener('install', e => {
+self.addEventListener('install', (e) => {
     console.log('[ServiceWorker] Install');
     e.waitUntil(
         caches.open(cacheName).then( cache => {
@@ -17,7 +17,7 @@ self.addEventListener('install', e => {
     );
 });
 
-self.addEventListener('activate',e => {
+self.addEventListener('activate',(e) => {
     e.waitUntil(
         caches.keys().then(cacheNames => {
             return Promise.all(cacheNames.map(presentCacheName => { 
@@ -29,7 +29,7 @@ self.addEventListener('activate',e => {
     )
 });
 
-self.addEventListener('fetch', event => {
+self.addEventListener('fetch', (event) => {
     event.respondWith(
         caches.match(event.request,{ignoreSearch:true})
         .then(response=>{
