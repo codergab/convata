@@ -24,20 +24,21 @@ self.addEventListener('install', (e) => {
         })
     );
 });
-self.addEventListener('activate',event => {
-    event.waitUntill(self.clients.claim());
-});
-// self.addEventListener('activate',(e) => {
-//     e.waitUntil(
-//         caches.keys().then(cacheNames => {
-//             return Promise.all(cacheNames.map(presentCacheName => { 
-//                 if(presentCacheName !== cacheName)
-//                 console.log('Removing Old Cache');
-//                 return caches.delete(presentCacheName);
-//             }))
-//         })
-//     )
+// self.addEventListener('activate',event => {
+//     event.waitUntill(self.clients.claim());
 // });
+self.addEventListener('activate',(e) => {
+    console.log('Activating [Service Worker]');
+    e.waitUntil(
+        caches.keys().then(cacheNames => {
+            return Promise.all(cacheNames.map(presentCacheName => { 
+                if(presentCacheName !== cacheName)
+                console.log('Removing Old Cache');
+                return caches.delete(presentCacheName);
+            }))
+        })
+    )
+});
 
 self.addEventListener('fetch', (event) => {
     event.respondWith(
