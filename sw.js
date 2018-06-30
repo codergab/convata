@@ -9,10 +9,9 @@ const cacheName = "convataCh";
 //     'https://free.currencyconverterapi.com/api/v5/currencies'
 // ];
 const cacheFiles = [
-    '/',
-    './index.html',
-    './css/bulma.min.css',
-    './js/app.js',
+    'index.html',
+    'css/bulma.min.css',
+    'js/app.js',
     'https://free.currencyconverterapi.com/api/v5/currencies'
 ];
 self.addEventListener('install', (e) => {
