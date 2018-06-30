@@ -31,10 +31,10 @@ self.addEventListener('activate',(e) => {
     e.waitUntil(
         caches.keys().then(cacheNames => {
             return Promise.all(cacheNames.map(presentCacheName => { 
-                if(presentCacheName !== cacheName)
+                if(presentCacheName != cacheName)
                 console.log('Removing Old Cache');
                 return caches.delete(presentCacheName);
-            }))
+            }));
         })
     )
 });
