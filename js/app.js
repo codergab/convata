@@ -2,7 +2,7 @@ const currencyStore = idb.open('currency_rates', 4, upgradeDB => {
 	upgradeDB.createObjectStore('converted_rates', {hello: 'World'});
 })
 
-converted_rates.add('rates', {'hello':'world'});
+// converted_rates.add('rates', {'hello':'world'});
 
 // currencyStore.add('USD_PHP', {conversion_value: 34.54}).then((resolve,reject) => {
 // 	resolve(console.log('Added'));
