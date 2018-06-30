@@ -2,10 +2,10 @@
 const cacheName = "convataCh";
 // cache files
 const cacheFiles = [
-    '/convata/',
-    '/convata/index.html',
-    '/convata/css/bulma.min.css',
-    '/convata/js/app.js',
+    'convata/',
+    'convata/index.html',
+    'convata/css/bulma.min.css',
+    'convata/js/app.js',
     'https://free.currencyconverterapi.com/api/v5/currencies'
 ];
 // const cacheFiles = [
