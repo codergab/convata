@@ -39,11 +39,20 @@ self.addEventListener('activate',(e) => {
     )
 });
 
-self.addEventListener('fetch', (event) => {
-    event.respondWith(
-        caches.match(event.request)
-        .then(response=>{
-            return response || fetch(event.request);
+self.addEventListener('fetch', (e) => {
+    e.respondWith(
+        caches.open(cacheName)
+        .then((cache) => {
+            return cache.match(e.request).then((response) => {
+                if (response) {
+                    return response;
+                }
+
+                return fetch(e.request).then((networkResponse) => {
+                    cache.put(e.request, networkResponse.clone());
+                    return networkResponse;
+                })
+            })
         })
     );
 });

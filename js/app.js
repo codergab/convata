@@ -1,6 +1,7 @@
-const currencyStore = idb.open('currency_rates', 4, upgradeDB => {
-	upgradeDB.createObjectStore('converted_rates', {hello: 'World'});
-})
+let currencyStore = idb.open('currency_rates', 1, upgradeDB => {
+	let keyValStore = upgradeDB.createObjectStore('converted_rates');
+	keyValStore.put('hellow','orld');
+});
 
 // converted_rates.add('rates', {'hello':'world'});
 
@@ -52,40 +53,45 @@ fetch(currenciesUrl)
 
 // Function to handle the conversion
 let handleConversion = () => {
-	statusDiv.innerHTML = "<div class='notification is-success'>Converting...</div>";
-	let option1 = document.querySelector('.currency').value;
-	let option2 = document.querySelector('.currency2').value;
-	let conversionValue = document.querySelector('#value').value;
+	if(navigator.onLine) {
+		statusDiv.innerHTML = "<div class='notification is-success'>Converting...</div>";
+		let option1 = document.querySelector('.currency').value;
+		let option2 = document.querySelector('.currency2').value;
+		let conversionValue = document.querySelector('#value').value;
 
-	let query =  `${option1}_${option2}`;
-	let conversionUrl = `https://free.currencyconverterapi.com/api/v5/convert?q=${query}&compact=y`;
-	console.log(conversionUrl);
-	// Send Conversion Request
-	fetch(conversionUrl)
-		.then(res => res.json())
-		.then( converted => {
-			statusDiv.innerHTML = "<div class='notification is-success'>Converted </div>";
-			console.log(converted);
-			const outputHtml = document.getElementById('convertedView');
-			for(let conv in converted) {
-				let conversionRate = converted[conv].val;
-				let convertedValue = conversionValue * conversionRate;
-				// console.log(convertedValue);
-				// alert(`${conversionValue} ${option1} to ${option2} = ${convertedValue}`);
-				statusDiv.innerHTML = `<div class='notification is-info'>
-				${conversionValue} ${option1} to ${option2} = ${Math.floor(convertedValue *100) / 100}</div>`;
+		let query =  `${option1}_${option2}`;
+		let conversionUrl = `https://free.currencyconverterapi.com/api/v5/convert?q=${query}&compact=y`;
+		console.log(conversionUrl);
+		// Send Conversion Request
+		fetch(conversionUrl)
+			.then(res => res.json())
+			.then( converted => {
+				statusDiv.innerHTML = "<div class='notification is-success'>Converted </div>";
+				console.log(converted);
+				const outputHtml = document.getElementById('convertedView');
+				for(let conv in converted) {
+					let conversionRate = converted[conv].val;
+					let convertedValue = conversionValue * conversionRate;
+					// console.log(convertedValue);
+					// alert(`${conversionValue} ${option1} to ${option2} = ${convertedValue}`);
+					statusDiv.innerHTML = `<div class='notification is-info'>
+					${conversionValue} ${option1} to ${option2} = ${Math.floor(convertedValue *100) / 100}</div>`;
+					resetBtn();
+				}
+			})
+			.catch((err) => {
+				console.error(err);
+				
+				statusDiv.innerHTML = `<div class='notification is-danger'>
+				<button class="delete"></button>
+				Ooops!, Something Went Wrong, Please Try again later...
+				</div>`;
 				resetBtn();
-			}
-		})
-		.catch((err) => {
-			console.error(err);
-			
-			statusDiv.innerHTML = `<div class='notification is-danger'>
-			<button class="delete"></button>
-			Ooops!, Something Went Wrong, Please Try again later...
-			</div>`;
-			resetBtn();
-		})
+			})
+	}else{
+		statusDiv.innerHTML = "<div class='notification is-danger'>Ooops!, Please Check your internet connection</div>";
+		convertBtn.classList.remove('is-loading');
+	}
 	// 
 	
 
