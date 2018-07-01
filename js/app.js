@@ -1,15 +1,5 @@
-let currencyStore = idb.open('currency_rates', 1, upgradeDB => {
-	let keyValStore = upgradeDB.createObjectStore('converted_rates');
-	keyValStore.put('hellow','orld');
-});
 
-// converted_rates.add('rates', {'hello':'world'});
 
-// currencyStore.add('USD_PHP', {conversion_value: 34.54}).then((resolve,reject) => {
-// 	resolve(console.log('Added'));
-// 	reject(console.log('Error'))
-// })
-// currencyStore.set('foo', {hello: 'world'});
 // Free Currency API
 let convertBtn = document.querySelector('#convertBtn');
 let optionVals1 = document.querySelector('.currency');
@@ -17,13 +7,11 @@ let optionVals2 = document.querySelector('.currency2');
 let statusDiv = document.querySelector('#status');
 let cV = document.querySelector("#convertedView");
 statusDiv.innerHTML = "<div class='notification is-success'>Fetching Currencies...</div>";
-convertBtn.addEventListener('click', () => { handleConversion(); convertBtn.classList.add('is-loading') });
 // Get All currencies
 const currenciesUrl = 'https://free.currencyconverterapi.com/api/v5/currencies';
 
 fetch(currenciesUrl)
 	.then((response) => {
-		
 		return response.json();
 	})
 	.then((data) => {
@@ -55,6 +43,7 @@ fetch(currenciesUrl)
 let handleConversion = () => {
 	if(navigator.onLine) {
 		statusDiv.innerHTML = "<div class='notification is-success'>Converting...</div>";
+		convertBtn.classList.add('is-loading');
 		let option1 = document.querySelector('.currency').value;
 		let option2 = document.querySelector('.currency2').value;
 		let conversionValue = document.querySelector('#value').value;
@@ -66,6 +55,7 @@ let handleConversion = () => {
 		fetch(conversionUrl)
 			.then(res => res.json())
 			.then( converted => {
+
 				statusDiv.innerHTML = "<div class='notification is-success'>Converted </div>";
 				console.log(converted);
 				const outputHtml = document.getElementById('convertedView');
@@ -90,7 +80,7 @@ let handleConversion = () => {
 			})
 	}else{
 		statusDiv.innerHTML = "<div class='notification is-danger'>Ooops!, Please Check your internet connection</div>";
-		convertBtn.classList.remove('is-loading');
+		resetBtn();
 	}
 	// 
 	
@@ -106,7 +96,7 @@ let resetBtn = () => {
 // Register Service Worker
 if('serviceWorker' in navigator) {
 	// Register Service Worker
-	navigator.serviceWorker.register('/convata/sw.js',{ scope: '/convata/'})
+	navigator.serviceWorker.register('./sw.js',{ scope: '/'})
 	.then((registration) => {
 		console.log('Service Worker Registered', registration);
 	})
