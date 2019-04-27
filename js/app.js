@@ -49,7 +49,7 @@ let handleConversion = () => {
 		let conversionValue = document.querySelector('#value').value;
 
 		let query =  `${option1}_${option2}`;
-		let conversionUrl = `https://free.currencyconverterapi.com/api/v5/convert?q=${query}&compact=y`;
+		let conversionUrl = `https://free.currencyconverterapi.com/api/v5/convert?q=${query}&compact=y&apiKey=bcd6c9eaee509520abef`;
 		console.log(conversionUrl);
 		// Send Conversion Request
 		fetch(conversionUrl)
