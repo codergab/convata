@@ -8,7 +8,7 @@ let statusDiv = document.querySelector('#status');
 let cV = document.querySelector("#convertedView");
 statusDiv.innerHTML = "<div class='notification is-success'>Fetching Currencies...</div>";
 // Get All currencies
-const currenciesUrl = 'https://free.currencyconverterapi.com/api/v5/currencies';
+const currenciesUrl = 'https://free.currconv.com/api/v5/currencies?apiKey=bcd6c9eaee509520abef';
 
 fetch(currenciesUrl)
 	.then((response) => {
@@ -49,7 +49,7 @@ let handleConversion = () => {
 		let conversionValue = document.querySelector('#value').value;
 
 		let query =  `${option1}_${option2}`;
-		let conversionUrl = `https://free.currencyconverterapi.com/api/v5/convert?q=${query}&compact=y&apiKey=bcd6c9eaee509520abef`;
+		let conversionUrl = `https://free.currconv.com/api/v5/convert?q=${query}&compact=y&apiKey=bcd6c9eaee509520abef`;
 		console.log(conversionUrl);
 		// Send Conversion Request
 		fetch(conversionUrl)
